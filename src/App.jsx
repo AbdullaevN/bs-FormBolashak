@@ -8,6 +8,7 @@ import SignIn from './components/SignIn/SignIn'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SignUp from './components/SignUp/SignUp'
 import Header from './components/Header/Header'
+import MultiStepForm from './components/SignUp/MultiStepForm'
 
 function App() {
 	const [count, setCount] = useState(0)
@@ -20,6 +21,7 @@ function App() {
 					<Routes>
 						<Route path='/' element={<SignIn />} />
 						<Route path='/sign-up' element={<SignUp />} />
+						<Route path='/mult' element={<MultiStepForm />} />
 					</Routes>
 				</BrowserRouter>
 				<Footer />

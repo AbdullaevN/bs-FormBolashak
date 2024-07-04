@@ -65,16 +65,27 @@ const SignIn = () => {
 
 	return (
 		<>
-			<div className='flex w-full'>
-				<div className='w-6/12'>
+			<div className='md:flex  w-full '>
+				{/* md:w-full sm:flex sm:flex-col-reverse */}
+				<div
+					className='md:w-6/12   
+				'
+				>
+					{/* // sm:w-full sm:hidden md:visible */}
 					<img
-						className='w-full h-screen object-cover'
+						className='w-full h-screen object-cover '
+						// sm:object-contain
 						// src='https://t3.ftcdn.net/jpg/03/55/60/70/360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg'
 						src='https://data.kaktus.media/image/big/2018-06-14_10-42-42_310132.jpg'
 						alt=''
 					/>
 				</div>
-				<div className='w-6/12 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+				<div
+					className='md:w-6/12 flex min-h-full flex-1 flex-col justify-center md:px-6 py-12 lg:px-8
+				sm:w-full sm:px-10 sm:flex sm:justify-center sm:text-center p-10 sm:items-center
+				
+				'
+				>
 					<div className='sm:mx-auto sm:w-full sm:max-w-sm'>
 						<h2 className='w-full text-2xl flex items-center justify-center font-bold'>
 							Добро пожаловать на наш политехнический университет им.Раззакова!
