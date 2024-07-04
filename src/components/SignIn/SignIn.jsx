@@ -68,27 +68,28 @@ const SignIn = () => {
 			<div className='flex w-full'>
 				<div className='w-6/12'>
 					<img
-						className='w-full h-screen'
-						src='https://t3.ftcdn.net/jpg/03/55/60/70/360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg'
+						className='w-full h-screen object-cover'
+						// src='https://t3.ftcdn.net/jpg/03/55/60/70/360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg'
+						src='https://data.kaktus.media/image/big/2018-06-14_10-42-42_310132.jpg'
 						alt=''
 					/>
 				</div>
 				<div className='w-6/12 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
 					<div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-						<img
-							className='mx-auto h-10 w-auto'
-							src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-							alt='Your Company'
-						/>
-						<h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-							Войти в аккаунт
+						<h2 className='w-full text-2xl flex items-center justify-center font-bold'>
+							Добро пожаловать на наш политехнический университет им.Раззакова!
+							<br />
+							Мы рады приветствовать наших абитуриентов!
+						</h2>
+						<h2 className='mt-10 text-center text-xl font-bold leading-9 tracking-tight text-gray-900'>
+							Хотите оставить заявку на поступление?
 						</h2>
 					</div>
 
 					<div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-						<form
+						{/* <form
 							className='space-y-6'
-							// action='#' method='POST'
+			 
 						>
 							<div>
 								<label
@@ -116,21 +117,14 @@ const SignIn = () => {
 							</div>
 
 							<div>
-								<div className='flex items-center justify-between'>
+								<div className=' 	 justify-between'>
 									<label
 										htmlFor='password'
 										className='block text-sm font-medium leading-6 text-gray-900'
 									>
 										Пароль
 									</label>
-									{/* <div className='text-sm'>
-										<a
-											href='#'
-											className='font-semibold text-indigo-600 hover:text-indigo-500'
-										>
-											Забыли пароль?
-										</a>
-									</div> */}
+							 
 								</div>
 								<div className='mt-2'>
 									{passwordDirty && passwordError && (
@@ -158,18 +152,21 @@ const SignIn = () => {
 								>
 									<Link to='/sign-up'>Войти</Link>
 								</button>
-								{/* <Link to='/home'>go to home</Link> */}
 							</div>
-						</form>
+						</form> */}
 
 						<p className='mt-10 text-center text-sm text-gray-500'>
-							Нет аккаунта{' '}
-							<a
+							{' '}
+							{/* <a
 								href='#'
 								className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
-							>
-								Зарегистрироваться
-							</a>
+							> */}
+							<Link to='/sign-up'>
+								<button className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+									Оставить заявку
+								</button>
+							</Link>
+							{/* </a> */}
 						</p>
 					</div>
 				</div>

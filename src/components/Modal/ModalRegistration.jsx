@@ -22,13 +22,6 @@ const ModalRegistration = () => {
 	return (
 		<>
 			<div>
-				{/* Кнопка для открытия модального окна */}
-				<button onClick={openModal}>Открыть модальное окно</button>
-
-				{/* Модальное окно (показывается если modalOpen === true) */}
-				{modalOpen && <Dialog onClose={closeModal} />}
-			</div>
-			<div>
 				<div>
 					<Dialog className='relative z-10' open={open} onClose={setOpen}>
 						<DialogBackdrop
