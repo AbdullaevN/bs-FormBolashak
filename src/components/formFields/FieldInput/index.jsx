@@ -1,9 +1,10 @@
 import { Field, ErrorMessage } from 'formik'
+import FieldErrorMessage from '../components/FieldErrorMessage'
 
 const FieldInput = ({ label, name }) => {
 	return (
 		<>
-			<div>
+			<div className='w-full'>
 				<label htmlFor={name} className='block mb-2'>
 					{label}:
 				</label>
@@ -13,11 +14,7 @@ const FieldInput = ({ label, name }) => {
 					name={name}
 					className='w-full p-2 mb-2 border border-gray-300 rounded'
 				/>
-				<ErrorMessage
-					name={name}
-					component='div'
-					className='text-red-500 mb-2'
-				/>
+				<FieldErrorMessage name={name} />
 			</div>
 		</>
 	)

@@ -5,9 +5,10 @@ const PdfViewer = ({ pdfUrl }) => {
 		<iframe
 			src={pdfUrl}
 			width='100%'
-			height='500px'
+			height='100%'
 			style={{ border: 'none' }}
 			title='PDF Viewer'
+			className='h-full'
 		/>
 	)
 }
