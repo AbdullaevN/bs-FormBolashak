@@ -21,7 +21,7 @@ const BreadcrumbItem = ({ step, setStep, label, isLast }) => (
 			{!isLast && <span className='mx-2 text-gray-400'>/</span>}
 		</li> */}
 
-		<div className='bg-white p-4 flex items-center flex-wrap'>
+		<div className='bg-white flex items-center flex-wrap'>
 			<ul className='flex items-center'>
 				<li className={`flex items-center ${isLast ? '' : 'mr-2'}`}>
 					<button

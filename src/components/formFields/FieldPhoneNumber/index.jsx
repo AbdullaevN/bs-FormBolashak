@@ -6,10 +6,10 @@ import { PHONE_NUMBER_MASK_DEFAULT } from './consts'
 const FieldPhoneNumber = ({ label, name, ...props }) => {
 	return (
 		<div>
-			<label htmlFor={name} className='block  text-xl'>
+			<label htmlFor={name} className='block  text-xl pb-10'>
 				{label}:
 			</label>
-			<Field name={name} className='py-12'>
+			<Field name={name} className='py-5 '>
 				{({ field, form }) => (
 					<MaskedTextInput field={field} form={form} {...props} />
 				)}
@@ -28,7 +28,7 @@ const MaskedTextInput = ({ field, form, ...props }) => {
 			{...props}
 			mask={PHONE_NUMBER_MASK_DEFAULT}
 			onChange={e => form.setFieldValue(field.name, e.target.value)}
-			className='w-full p-2 py-2 mb-2 border border-gray-300 rounded text-4xl'
+			className='w-full p-2 py-2 mb-2 border border-gray-300 rounded text-2xl'
 			placeholder='Введите номер телефона'
 			guide={false}
 		/>

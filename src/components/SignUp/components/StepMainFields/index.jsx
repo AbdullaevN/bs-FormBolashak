@@ -61,14 +61,14 @@ const StepMainFields = ({ setStep }) => {
 						console.log('values,', values)
 						return (
 							<Form className='flex justify-between'>
-								<div>
+								<div className='w-6/12'>
 									<FieldInput label='Имя' name='name' />
 									<FieldInput label='Фамилия' name='lastName' />
 									<FieldInput label='ИНН' name='inn' />
 									<FieldInput label='№ Документа' name='idNumber' />
 									<FieldInput label='Национальность' name='nationality' />
 									<div
-										className='flex justify-between items-center text-start
+										className='flex justify-between items-center gap-5 text-start w-12/12
 										'
 									>
 										<FieldOfBirthday
@@ -77,7 +77,7 @@ const StepMainFields = ({ setStep }) => {
 											className='w-6/12'
 										/>
 
-										<Form>
+										<Form className='w-6/12'>
 											<FieldSelect
 												label='Пол'
 												name='sex'
@@ -93,7 +93,7 @@ const StepMainFields = ({ setStep }) => {
 									<FieldInput label='Место рождения' name='placeOfBirth' />
 
 									<div
-										className='flex justify-between items-center text-start
+										className='flex justify-between items-center text-start gap-5
 										'
 									>
 										<FieldOfIssue
@@ -112,8 +112,8 @@ const StepMainFields = ({ setStep }) => {
 									<FieldInput label='Адрес' name='address' />
 									<FieldInput label='Город' name='city' />
 								</div>
-								<div className='flex flex-col w-[100vh] '>
-									<div className='w-full'>
+								<div className='flex flex-col w-6/12 '>
+									<div className='w-full px-10'>
 										<FieldFileUpload
 											label='Передняя сторона паспорта'
 											name='passportFront'

@@ -13,16 +13,23 @@ export const stepFieldCheckbox = Yup.object({
 
 export const stepConfirmPhoneValidation = Yup.object({
 	phone: Yup.string().required(REQUARED_TEXT),
+	// .length(6, 'Поле  должно иметь 6 символов'),
 })
 
 export const stepConfirmCodeValidation = Yup.object({
-	phone: Yup.string().length(6, 'Не валидный код').required(REQUARED_TEXT),
+	phone: Yup.string()
+		.max(6, 'Код должен состоять из 6 цифр')
+		.required(REQUARED_TEXT),
 })
 export const stepMainFieldsValidation = Yup.object({
 	name: Yup.string().required(REQUARED_TEXT),
 	lastName: Yup.string().required(REQUARED_TEXT),
 	inn: Yup.string()
 		.length(14, 'Поле ИНН должен иметь 14 символов')
+		.matches(
+			/^\d{14}$/,
+			'Поле ИНН должно состоять только из цифр и иметь 14 символов'
+		)
 		.required(REQUARED_TEXT),
 	idNumber: Yup.string().required(REQUARED_TEXT),
 	nationality: Yup.string().required(REQUARED_TEXT),

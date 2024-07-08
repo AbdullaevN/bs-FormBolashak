@@ -14,7 +14,7 @@ const FieldDocFilesUpload = ({ setFieldValue, label, name }) => {
 			<Field name={name}>
 				{({ field }) => (
 					<div className='flex flex-row items-center justify-between  text-center py-3 '>
-						<div className='w-6/12 flex'>
+						<div className='w-full flex'>
 							<input
 								type='file'
 								id={name}
@@ -25,13 +25,15 @@ const FieldDocFilesUpload = ({ setFieldValue, label, name }) => {
 
 							<label
 								htmlFor={name}
-								className='block   text-slate-500 mr-4 py-2 px-4 rounded-md border-0 text-sm font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 cursor-pointer'
+								className='flex justify-center items-center text-center w-full  text-slate-500 mr-4 py-2 px-20 rounded-md border-0 text-sm font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 cursor-pointer'
 							>
 								{label}
 							</label>
 						</div>
-						<div className='w-6/12 flex'>
-							<span className='text-sm text-slate-500'>{selectedFile}</span>
+						<div className='w-full flex'>
+							{selectedFile && (
+								<span className='text-sm text-slate-500'>{selectedFile}</span>
+							)}
 						</div>
 					</div>
 				)}

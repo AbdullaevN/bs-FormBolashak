@@ -16,6 +16,7 @@ import dayjs from 'dayjs'
 import { SERVER_DATE_FORMAT } from '../../globalConsts/timeFormats'
 import { Link } from 'react-router-dom'
 import BreadCrumbs from '../BreadCrumbs'
+import StepSuccessfully from './components/StepSuccessfully'
 
 const SignUp = () => {
 	const [
@@ -80,6 +81,7 @@ const SignUp = () => {
 					{currentStep === 4 && <StepMainFields setStep={setStep} />}
 
 					{currentStep === 5 && <StepAddFiles setStep={setStep} />}
+					{currentStep === 6 && <StepSuccessfully setStep={setStep} />}
 				</div>
 			</div>
 		</>

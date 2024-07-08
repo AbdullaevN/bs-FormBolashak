@@ -3,7 +3,7 @@ import { ErrorMessage, Field } from 'formik'
 const FieldOfIssue = ({ label, name }) => {
 	return (
 		<>
-			<div className='container mx-auto px-4 h-full flex flex-col text-start items-start'>
+			<div className='container mx-auto h-full flex flex-col text-start items-start'>
 				<label
 					htmlFor={name}
 					className='block mb-2 text-start items-start place-content-start '

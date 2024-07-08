@@ -39,17 +39,18 @@ const StepAddFiles = ({ setStep }) => {
 					validationSchema={stepAddFilesValidation}
 					onSubmit={values => {
 						// postFormRequest(values)
-						alert('Form submitted!')
+						// alert('Form submitted!')
+						setStep(6)
 						console.log(values, '22')
 					}}
 				>
-					{({ setFieldValue, isValid, dirty }) => (
+					{({ setFieldValue, isValid, dirty, values }) => (
 						<Form>
 							{/* <FieldThree label='Поле 1' name='company' />
 										<FieldThree label='Поле 2' name='position' />
 										<FieldThree label='Поле 3' name='website' />
 										<FieldThree label='Поле 4' name='bio' /> */}
-							<div className='w-full'>
+							{/* <div className='w-full'>
 								<FieldDocFilesUpload
 									label='Выберите документ 1'
 									name='file1'
@@ -91,9 +92,32 @@ const StepAddFiles = ({ setStep }) => {
 									name='file8'
 									setFieldValue={setFieldValue}
 								/>
+								
+							</div> */}
+							<div className='w-full'>
+								{[...Array(8).keys()].map(index => (
+									<div key={index} className='mb-4 flex items-center'>
+										<FieldDocFilesUpload
+											label={`Выберите документ ${index + 1}`}
+											name={`file${index + 1}`}
+											setFieldValue={setFieldValue}
+										/>
+										{values[`file${index + 1}`] && (
+											<button
+												type='button'
+												onClick={() => {
+													setFieldValue(`file${index + 1}`, null)
+												}}
+												className='ml-2 px-4 py-2 w-4/12 text-white bg-red-500 rounded'
+											>
+												Удалить
+											</button>
+										)}
+									</div>
+								))}
 							</div>
 
-							<div className='flex justify-around gap-5 mt-4'>
+							<div className='flex justify-between gap-5 mt-4'>
 								<button
 									type='button'
 									onClick={() => setStep(4)}

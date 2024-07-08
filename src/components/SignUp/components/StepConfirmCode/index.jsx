@@ -54,7 +54,7 @@ const StepConfirmCode = ({ setStep }) => {
 					onSubmit={values => {
 						setStep(4)
 						removeStorageCodeExpired()
-						setCodeSuccess(dayjs().add(1, 'day').format(SERVER_DATE_FORMAT))
+						setCodeSuccess(dayjs().add(5, 'minutes').format(SERVER_DATE_FORMAT))
 					}}
 				>
 					{({ isValid, dirty, values }) => {
@@ -95,12 +95,12 @@ const StepConfirmCode = ({ setStep }) => {
 									</button>
 								) : null}
 
-								<div className=' mt-4 flex gap-8 justify-between '>
+								<div className=' mt-4 flex gap-8 justify-between w-full'>
 									<button
 										type='button'
 										onClick={() => setStep(2)}
 										disabled={isWaitingCode}
-										className={`px-8  w-36 py-4  text-white bg-blue-500 rounded
+										className={`px-6 w-36  py-2 text-white bg-blue-500 rounded
 											${!isWaitingCode ? 'bg-blue-500' : 'bg-gray-400 cursor-not-allowed'}
 											`}
 									>
@@ -108,7 +108,7 @@ const StepConfirmCode = ({ setStep }) => {
 									</button>
 									<button
 										type='submit'
-										className={`px-8 w-36  py-4  text-white rounded ${
+										className={`px-6 w-36  py-2  text-white rounded ${
 											isValid && dirty
 												? 'bg-blue-500'
 												: 'bg-gray-400 cursor-not-allowed'

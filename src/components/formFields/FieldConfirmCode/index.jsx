@@ -12,6 +12,7 @@ const FieldConfirmCode = ({ label, name, ...props }) => {
 					type='text'
 					id={name}
 					name={name}
+					maxlength='6'
 					// className='w-full p-2 mb-2 border border-gray-300 rounded'
 					className='w-full p-2 py-2 mb-2 border border-gray-300 rounded text-4xl'
 				/>
