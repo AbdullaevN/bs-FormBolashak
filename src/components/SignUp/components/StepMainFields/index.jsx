@@ -17,7 +17,7 @@ const StepMainFields = ({ setStep }) => {
 	const formData = useSelector(state => state.form.formData)
 	const handleSubmit = values => {
 		dispatch(setFormData(values))
-		// setStep(5)
+		setStep(5)
 		console.log(values, 'handle')
 	}
 	useEffect(() => {
