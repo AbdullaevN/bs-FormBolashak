@@ -10,12 +10,13 @@ const Breadcrumbs = ({ setStep, currentStep }) => {
 		'Подтверждение кода',
 		'Паспортные данные',
 		'Добавить документы',
+		'Успешная отправка!',
 	]
 
 	return (
 		<>
-			<nav className='container w-auto flex justify-start'>
-				<ol className='list-reset py-4 pl-4 rounded flex bg-grey-light text-grey items-center'>
+			<nav className='container w-auto flex justify-center sm:justify-start md:justify-start whitespace-nowrap '>
+				<ol className='list-reset py-4 pl-4 rounded flex bg-grey-light text-grey items-center flex-col sm:flex-row md:flex-row'>
 					<li className='inline-flex items-center'>
 						<Link to='/' className='text-gray-600 hover:text-blue-500'>
 							<svg

@@ -9,24 +9,52 @@ import { stepMainFieldsValidation } from '../../formAttributes'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFormData } from '../../../../store/slices/formSlice'
 import { useSessionStorage } from 'react-use'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { CODE_SUCCESS_EXPIRED_STORAGE_KEY } from '../../consts'
+import axios from 'axios'
 
-const StepMainFields = ({ setStep }) => {
-	const dispatch = useDispatch()
-	const formData = useSelector(state => state.form.formData)
-	const handleSubmit = values => {
-		dispatch(setFormData(values))
-		setStep(5)
-		console.log(values, 'handle')
-	}
+const StepMainFields = ({ setStep, setMainFormData }) => {
 	useEffect(() => {
 		if (CODE_SUCCESS_EXPIRED_STORAGE_KEY) {
-			null
+			null // Handle expired session case
 		} else {
-			setStep(3)
+			setStep(3) // Navigate to the previous step if session expired
 		}
 	}, [setStep])
+
+	const handleSubmit = async (values, { setSubmitting }) => {
+		try {
+			const formDataToSend = new FormData()
+			Object.keys(values).forEach(key => {
+				if (
+					key === 'passportFront' ||
+					key === 'passportBack' ||
+					key === 'selfieWithPassport'
+				) {
+					formDataToSend.append(key, values[key][0]) // Assuming values[key] is an array of files
+				} else {
+					formDataToSend.append(key, values[key])
+				}
+			})
+
+			const response = await axios.post(
+				'http://77.235.20.172:3605/api/users/form_submit',
+				formDataToSend,
+				{
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				}
+			)
+
+			console.log('Form submit response:', response.data)
+			setStep(5) // Navigate to the next step upon successful submission
+		} catch (error) {
+			console.error('Error submitting form:', error.message)
+			// Handle error as needed
+		}
+	}
+
 	return (
 		<>
 			<div>
@@ -54,21 +82,26 @@ const StepMainFields = ({ setStep }) => {
 					// onSubmit={values => {
 					// 	setStep(5)
 					// }}
-					onSubmit={handleSubmit}
+					// onSubmit={handleSubmit}
+					onSubmit={values => {
+						// handleSubmit(values, actions)
+						setMainFormData(values)
+						setStep(5)
+					}}
 				>
 					{({ setFieldValue, isValid, dirty, values }) => {
 						console.log('	isalid', isValid)
 						console.log('values,', values)
 						return (
-							<Form className='flex justify-between'>
-								<div className='w-6/12'>
+							<Form className='flex justify-between flex-col sm:flex-row md:flex-row'>
+								<div className='  w-full md:w-6/12 sm:w-6/12'>
 									<FieldInput label='Имя' name='name' />
 									<FieldInput label='Фамилия' name='lastName' />
 									<FieldInput label='ИНН' name='inn' />
 									<FieldInput label='№ Документа' name='idNumber' />
 									<FieldInput label='Национальность' name='nationality' />
 									<div
-										className='flex justify-between items-center gap-5 text-start w-12/12
+										className='flex justify-between items-center flex-col md:flex-row sm:flex-row gap-5 text-start w-12/12
 										'
 									>
 										<FieldOfBirthday
@@ -77,7 +110,7 @@ const StepMainFields = ({ setStep }) => {
 											className='w-6/12'
 										/>
 
-										<Form className='w-6/12'>
+										<Form className='w-full sm:w-6/12 md:full'>
 											<FieldSelect
 												label='Пол'
 												name='sex'
@@ -112,7 +145,7 @@ const StepMainFields = ({ setStep }) => {
 									<FieldInput label='Адрес' name='address' />
 									<FieldInput label='Город' name='city' />
 								</div>
-								<div className='flex flex-col w-6/12 '>
+								<div className='flex flex-col w-full sm:w-6/12 md:w-6/12 '>
 									<div className='w-full px-10'>
 										<FieldFileUpload
 											label='Передняя сторона паспорта'
@@ -130,7 +163,7 @@ const StepMainFields = ({ setStep }) => {
 											setFieldValue={setFieldValue}
 										/>
 									</div>
-									<div className=' mt-4 flex gap-5 justify-between'>
+									<div className='  mt-4 flex gap-5 justify-between'>
 										<button
 											type='button'
 											onClick={() => setStep(2)}

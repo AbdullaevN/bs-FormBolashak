@@ -4,6 +4,7 @@ import FieldConfirmCode from '../../../formFields/FieldConfirmCode'
 import CountdownTimer from '../../../globalComponents/CountdownTimer'
 import { useLocalStorage } from 'react-use'
 import {
+	ACCESS_TOKEN_STORAGE_KEY,
 	CODE_EXPIRED_STORAGE_KEY,
 	CODE_SUCCESS_EXPIRED_STORAGE_KEY,
 	CONFIRM_PHONE_STORAGE_KEY,
@@ -13,6 +14,8 @@ import { getNextRetryTimeValue } from '../../../../helpers/timeHelpers'
 import { confirmPhoneRequest } from '../../../../request/requestConfirmPhone'
 import { SERVER_DATE_FORMAT } from '../../../../globalConsts/timeFormats'
 import dayjs from 'dayjs'
+import { verifyPhoneNumber } from './verifyPhoneNumber'
+import FieldErrorMessage from '../../../formFields/components/FieldErrorMessage'
 
 const StepConfirmCode = ({ setStep }) => {
 	const [codeSuccess, setCodeSuccess] = useLocalStorage(
@@ -21,6 +24,7 @@ const StepConfirmCode = ({ setStep }) => {
 	)
 
 	const [isWaitingCode, setIsWaitingCode] = useState(false)
+	const [validationError, setValidationError] = useState('')
 
 	const [
 		storageConfirmPhone,
@@ -30,6 +34,9 @@ const StepConfirmCode = ({ setStep }) => {
 	const [storageCodeExpired, setStorageCodeExpired, removeStorageCodeExpired] =
 		useLocalStorage(CODE_EXPIRED_STORAGE_KEY)
 
+	const [storageAccessToken, setStorageAccessToken] = useLocalStorage(
+		ACCESS_TOKEN_STORAGE_KEY
+	)
 	const nextRetryTimeValue = getNextRetryTimeValue(storageCodeExpired)
 
 	useEffect(() => {
@@ -48,61 +55,72 @@ const StepConfirmCode = ({ setStep }) => {
 				</h2>
 				<Formik
 					initialValues={{
-						phone: '',
+						code: '',
 					}}
 					validationSchema={stepConfirmCodeValidation}
-					onSubmit={values => {
-						setStep(4)
-						removeStorageCodeExpired()
-						setCodeSuccess(dayjs().add(5, 'minutes').format(SERVER_DATE_FORMAT))
+					// onSubmit={values => {
+					// 	try {
+					// 		verifyPhoneNumber(
+					// 			values.code,
+					// 			storageConfirmPhone,
+					// 			storageAccessToken
+					// 		).then(() => {
+					// 			removeStorageCodeExpired()
+					// 			setCodeSuccess(
+					// 				dayjs().add(5, 'minutes').format(SERVER_DATE_FORMAT)
+					// 			)
+					// 			setStep(4)
+					// 		})
+					// 	} catch (error) {
+					// 		setValidationError('Ошибка верификации: ' + error.message)
+
+					// 		console.error('Verification error:', error.message)
+					// 	}
+					// }}
+					onSubmit={(values, { setSubmitting }) => {
+						setValidationError('') // Clear previous error message
+						verifyPhoneNumber(
+							values.code,
+							storageConfirmPhone,
+							storageAccessToken
+						)
+							.then(() => {
+								removeStorageCodeExpired()
+								setCodeSuccess(
+									dayjs().add(5, 'minutes').format(SERVER_DATE_FORMAT)
+								)
+								setStep(4)
+							})
+							.catch(error => {
+								setValidationError('Ошибка верификации, не правильный код ')
+								console.error('Verification error:', error.message)
+							})
+							.finally(() => {
+								setSubmitting(false)
+							})
 					}}
 				>
 					{({ isValid, dirty, values }) => {
-						console.log('	isalid', isValid)
-						console.log('values,', values)
+						// console.log('	isalid', isValid)
+						// console.log('values,', values)
 						return (
 							<Form className='flex justify-between  flex-col gap-10 items-center pt-10'>
+								{validationError && (
+									<div className='text-red-500'>{validationError}</div>
+								)}
+
+								{}
 								<FieldConfirmCode
 									label='Введите код подтверждения'
-									name='phone'
+									name='code'
 								/>
-								{isWaitingCode && (
-									<div>
-										Повторная отправка кода через :
-										<CountdownTimer
-											onFinish={() => {
-												removeStorageCodeExpired()
-											}}
-											targetTime={storageCodeExpired}
-										/>
-									</div>
-								)}
-								{!isWaitingCode ? (
-									<button
-										type='button'
-										onClick={() => {
-											confirmPhoneRequest(
-												storageConfirmPhone,
-												setStorageConfirmPhone,
-												setStorageCodeExpired
-											)
-										}}
-										className={`px-8  w-auto py-4  text-white bg-blue-500 rounded
-							
-											`}
-									>
-										Отправить код повторно
-									</button>
-								) : null}
 
 								<div className=' mt-4 flex gap-8 justify-between w-full'>
 									<button
 										type='button'
 										onClick={() => setStep(2)}
-										disabled={isWaitingCode}
-										className={`px-6 w-36  py-2 text-white bg-blue-500 rounded
-											${!isWaitingCode ? 'bg-blue-500' : 'bg-gray-400 cursor-not-allowed'}
-											`}
+										// disabled={isWaitingCode}
+										className={`px-6 w-36  py-2 text-white bg-blue-500 rounded`}
 									>
 										Назад
 									</button>

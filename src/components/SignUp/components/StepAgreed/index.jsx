@@ -30,7 +30,7 @@ const StepAgreed = ({ setStep }) => {
 					{({ isValid, dirty }) => {
 						return (
 							<Form className='flex justify-between items-center text-start '>
-								<div className='flex w-6/12 flex-col items-start text-start justify-start'>
+								<div className='flex sm:w-9/12 md:9/12 w-7/12 flex-col items-start text-start justify-start'>
 									<FieldCheckbox
 										label='	«Я принимаю условия Политики конфиденциальности и обработки	файлов»'
 										name='agreed1'
@@ -39,14 +39,14 @@ const StepAgreed = ({ setStep }) => {
 									<FieldCheckbox
 										label='	«Я принимаю условия пользовательского соглашения»'
 										name='agreed2'
-										className='flex items-start'
+										className='flex items-start  '
 									/>
 								</div>
 
-								<div className='flex w-6/12 justify-end mt-4'>
+								<div className='flex sm:w-3/12 md:3/12 w-4/12 justify-end mt-4'>
 									<button
 										type='submit'
-										className={`px-6 w-36  py-2 text-white rounded ${
+										className={`px-6 w-28 sm:w-36 text-center  py-2 text-white rounded ${
 											isValid && dirty
 												? 'bg-blue-500'
 												: 'bg-gray-400 cursor-not-allowed'

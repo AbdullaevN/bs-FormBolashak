@@ -13,11 +13,10 @@ export const stepFieldCheckbox = Yup.object({
 
 export const stepConfirmPhoneValidation = Yup.object({
 	phone: Yup.string().required(REQUARED_TEXT),
-	// .length(6, 'Поле  должно иметь 6 символов'),
 })
 
 export const stepConfirmCodeValidation = Yup.object({
-	phone: Yup.string()
+	code: Yup.string()
 		.max(6, 'Код должен состоять из 6 цифр')
 		.required(REQUARED_TEXT),
 })

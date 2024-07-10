@@ -3,6 +3,7 @@ import FieldPhoneNumber from '../../../formFields/FieldPhoneNumber'
 import { stepConfirmPhoneValidation } from '../../formAttributes'
 import { useLocalStorage } from 'react-use'
 import {
+	ACCESS_TOKEN_STORAGE_KEY,
 	CODE_EXPIRED_STORAGE_KEY,
 	CONFIRM_PHONE_STORAGE_KEY,
 } from '../../consts'
@@ -14,34 +15,13 @@ const StepConfirmPhone = ({ setStep }) => {
 	const [storageConfirmPhone, setStorageConfirmPhone] = useLocalStorage(
 		CONFIRM_PHONE_STORAGE_KEY
 	)
+	const [storageAccessToken, setStorageAccessToken] = useLocalStorage(
+		ACCESS_TOKEN_STORAGE_KEY
+	)
+
 	const [storageCodeExpired, setStorageCodeExpired] = useLocalStorage(
 		CODE_EXPIRED_STORAGE_KEY
 	)
-
-	// // Request fromBackend backend
-	// const confirmPhoneRequest = phone => {
-	// 	//fetch
-	// 	// if success then ()
-	// 	let digitsOnly = phone?.replace(/\D/g, '')
-	// 	setStorageConfirmPhone(`${digitsOnly}`)
-	// 	// срок действия кода
-	// 	const TIME_FROM_BACKEND = dayjs()
-	// 		.add(10, 'seconds')
-	// 		.format(SERVER_DATE_FORMAT)
-	// 	const codeTime =
-	// 		TIME_FROM_BACKEND &&
-	// 		dayjs(TIME_FROM_BACKEND, SERVER_DATE_FORMAT).isValid()
-	// 			? TIME_FROM_BACKEND
-	// 			: dayjs()
-	// 					.add(CONFIRM_CODE_DEFAULT_MINUTES_DILATION, 'minutes')
-	// 					.format(SERVER_DATE_FORMAT)
-	// 	setStorageCodeExpired(codeTime)
-	// 	setStep(3)
-	// 	console.log('code time', codeTime)
-
-	// 	// if failure catch()
-	// 	//  выводишь всплывашку, что запрос не прошёл
-	// }
 
 	return (
 		<>
@@ -54,29 +34,29 @@ const StepConfirmPhone = ({ setStep }) => {
 						phone: '',
 					}}
 					validationSchema={stepConfirmPhoneValidation}
-					onSubmit={values => {
-						confirmPhoneRequest(
+					onSubmit={async values => {
+						console.log(values, 'submmit')
+						await confirmPhoneRequest(
 							values?.phone,
 							setStorageConfirmPhone,
 							setStorageCodeExpired,
+							setStorageAccessToken,
 							setStep
 						)
 					}}
 				>
 					{({ isValid, dirty, values }) => {
-						// console.log('	isalid', isValid)
-						// console.log('values,', values)
 						return (
-							<Form className='flex justify-between flex-col gap-10 items-center pt-10'>
+							<Form className='flex justify-between flex-col gap-10 items-center pt-10   w-full'>
 								<FieldPhoneNumber
 									label='Пожалуйста, введите ваш номер телефона. Вам придет СМС код для подтверждения'
 									name='phone'
 								/>
 
-								<div className='  flex  justify-between items-start gap-96 w-full '>
+								<div className='  flex  justify-between items-start  w-full '>
 									<button
 										type='button'
-										onClick={() => setStep(1)}
+										onClick={() => setStep(2)}
 										className='px-6  w-36 py-2  text-white bg-blue-500 rounded'
 									>
 										Назад

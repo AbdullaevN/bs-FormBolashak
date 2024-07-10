@@ -28,7 +28,7 @@ const MaskedTextInput = ({ field, form, ...props }) => {
 			{...props}
 			mask={PHONE_NUMBER_MASK_DEFAULT}
 			onChange={e => form.setFieldValue(field.name, e.target.value)}
-			className='w-full p-2 py-2 mb-2 border border-gray-300 rounded text-2xl'
+			className='w-full p-2 py-2 mb-2 border border-gray-300 rounded text-auto'
 			placeholder='Введите номер телефона'
 			guide={false}
 		/>

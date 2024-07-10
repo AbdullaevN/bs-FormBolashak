@@ -29,13 +29,13 @@ const SignUp = () => {
 	const [codeSuccessExpired, setCodeSuccessExpired, resetCodeSuccessExpired] =
 		useLocalStorage(CODE_SUCCESS_EXPIRED_STORAGE_KEY)
 
+	const [mainFormData, setMainFormData] = useState(undefined)
 	const [currentStep, setCurrentStep] = useState(undefined)
-
 	const nextRetryTimeValue = getNextRetryTimeValue(storageCodeExpired)
 
 	const setStep = number => {
-		setCurrentStep(number)
-		console.log(number, 'number')
+		setCurrentStep(6)
+		// console.log(number, 'number')
 	}
 
 	useEffect(() => {
@@ -70,7 +70,7 @@ const SignUp = () => {
 	return (
 		<>
 			<div className='flex items-center justify-center min-h-screen bg-gray-100'>
-				<div className='bg-white p-8 rounded-lg shadow-lg w-full h-full max-w-screen-2xl'>
+				<div className='bg-white p-8 rounded-lg shadow-lg w-full h-full max-w-screen-2xl sm:h-screen md:h-full'>
 					<BreadCrumbs setStep={setStep} currentStep={currentStep} />
 					{currentStep === 1 && <StepAgreed setStep={setStep} />}
 
@@ -78,9 +78,16 @@ const SignUp = () => {
 
 					{currentStep === 3 && <StepConfirmCode setStep={setStep} />}
 
-					{currentStep === 4 && <StepMainFields setStep={setStep} />}
+					{currentStep === 4 && (
+						<StepMainFields
+							setStep={setStep}
+							setMainFormData={setMainFormData}
+						/>
+					)}
 
-					{currentStep === 5 && <StepAddFiles setStep={setStep} />}
+					{currentStep === 5 && (
+						<StepAddFiles setStep={setStep} mainFormData={mainFormData} />
+					)}
 					{currentStep === 6 && <StepSuccessfully setStep={setStep} />}
 				</div>
 			</div>
@@ -89,13 +96,3 @@ const SignUp = () => {
 }
 
 export default SignUp
-
-// const [requestData, setRequestData] = useState(null)
-
-// const postFormRequest = values => {
-// 	console.log('values', values)
-// 	fetch('https://lac-company.herokuapp.com/news/')
-// 		.then(response => response.json())
-// 		.then(data => setRequestData(data))
-// 		.catch(error => console.error(error))
-// }
