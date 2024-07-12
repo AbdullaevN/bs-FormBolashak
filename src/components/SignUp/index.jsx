@@ -32,9 +32,10 @@ const SignUp = () => {
 	const [mainFormData, setMainFormData] = useState(undefined)
 	const [currentStep, setCurrentStep] = useState(undefined)
 	const nextRetryTimeValue = getNextRetryTimeValue(storageCodeExpired)
+	const [codeID, setCodeID] = useState(null)
 
 	const setStep = number => {
-		setCurrentStep(6)
+		setCurrentStep(number)
 		// console.log(number, 'number')
 	}
 
@@ -76,17 +77,24 @@ const SignUp = () => {
 
 					{currentStep === 2 && <StepConfirmPhone setStep={setStep} />}
 
-					{currentStep === 3 && <StepConfirmCode setStep={setStep} />}
+					{currentStep === 3 && (
+						<StepConfirmCode setStep={setStep} setCodeID={setCodeID} />
+					)}
 
 					{currentStep === 4 && (
 						<StepMainFields
 							setStep={setStep}
 							setMainFormData={setMainFormData}
+							codeID={codeID}
 						/>
 					)}
 
 					{currentStep === 5 && (
-						<StepAddFiles setStep={setStep} mainFormData={mainFormData} />
+						<StepAddFiles
+							setStep={setStep}
+							mainFormData={mainFormData}
+							codeID={codeID}
+						/>
 					)}
 					{currentStep === 6 && <StepSuccessfully setStep={setStep} />}
 				</div>

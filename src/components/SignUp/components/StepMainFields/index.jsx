@@ -13,47 +13,19 @@ import { useEffect, useState } from 'react'
 import { CODE_SUCCESS_EXPIRED_STORAGE_KEY } from '../../consts'
 import axios from 'axios'
 
-const StepMainFields = ({ setStep, setMainFormData }) => {
+const StepMainFields = ({
+	setStep,
+	setMainFormData,
+	mainFormData,
+	codeid_client,
+}) => {
 	useEffect(() => {
 		if (CODE_SUCCESS_EXPIRED_STORAGE_KEY) {
-			null // Handle expired session case
+			null
 		} else {
-			setStep(3) // Navigate to the previous step if session expired
+			setStep(3)
 		}
 	}, [setStep])
-
-	const handleSubmit = async (values, { setSubmitting }) => {
-		try {
-			const formDataToSend = new FormData()
-			Object.keys(values).forEach(key => {
-				if (
-					key === 'passportFront' ||
-					key === 'passportBack' ||
-					key === 'selfieWithPassport'
-				) {
-					formDataToSend.append(key, values[key][0]) // Assuming values[key] is an array of files
-				} else {
-					formDataToSend.append(key, values[key])
-				}
-			})
-
-			const response = await axios.post(
-				'http://77.235.20.172:3605/api/users/form_submit',
-				formDataToSend,
-				{
-					headers: {
-						'Content-Type': 'multipart/form-data',
-					},
-				}
-			)
-
-			console.log('Form submit response:', response.data)
-			setStep(5) // Navigate to the next step upon successful submission
-		} catch (error) {
-			console.error('Error submitting form:', error.message)
-			// Handle error as needed
-		}
-	}
 
 	return (
 		<>
@@ -64,14 +36,14 @@ const StepMainFields = ({ setStep, setMainFormData }) => {
 						name: '',
 						lastName: '',
 						inn: '',
+						sex: '',
+						email: '',
 						idNumber: '',
 						nationality: '',
-						dateOfBirthday: '',
-						sex: '',
 						authority: '',
+						dateOfBirthday: '',
 						placeOfBirth: '',
 						dateOfIssue: '',
-						email: '',
 						address: '',
 						city: '',
 						passportFront: null,
@@ -79,19 +51,14 @@ const StepMainFields = ({ setStep, setMainFormData }) => {
 						selfieWithPassport: null,
 					}}
 					validationSchema={stepMainFieldsValidation}
-					// onSubmit={values => {
-					// 	setStep(5)
-					// }}
-					// onSubmit={handleSubmit}
 					onSubmit={values => {
-						// handleSubmit(values, actions)
 						setMainFormData(values)
 						setStep(5)
 					}}
 				>
 					{({ setFieldValue, isValid, dirty, values }) => {
-						console.log('	isalid', isValid)
-						console.log('values,', values)
+						// console.log('	isalid', isValid)
+						// console.log('values,', values)
 						return (
 							<Form className='flex justify-between flex-col sm:flex-row md:flex-row'>
 								<div className='  w-full md:w-6/12 sm:w-6/12'>
@@ -115,8 +82,8 @@ const StepMainFields = ({ setStep, setMainFormData }) => {
 												label='Пол'
 												name='sex'
 												optionsList={[
-													{ value: 'male', label: 'Мужчина' },
-													{ value: 'female', label: 'Женщина' },
+													{ value: 1, label: 'Мужчина' },
+													{ value: 2, label: 'Женщина' },
 												]}
 												placeholder='Выберите ваш пол'
 											/>

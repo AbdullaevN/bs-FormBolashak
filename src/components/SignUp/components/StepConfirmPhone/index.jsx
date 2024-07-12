@@ -10,6 +10,7 @@ import {
 import dayjs from 'dayjs'
 import { SERVER_DATE_FORMAT } from '../../../../globalConsts/timeFormats'
 import { confirmPhoneRequest } from '../../../../request/requestConfirmPhone'
+import axios from 'axios'
 
 const StepConfirmPhone = ({ setStep }) => {
 	const [storageConfirmPhone, setStorageConfirmPhone] = useLocalStorage(
@@ -23,12 +24,33 @@ const StepConfirmPhone = ({ setStep }) => {
 		CODE_EXPIRED_STORAGE_KEY
 	)
 
+	const sendGet = async () => {
+		try {
+			// const response = await axios.get(
+			// 	'http://77.235.20.172:3605/api/users/getExample',
+			// 	// { phone: digitsOnly }
+			// 	console.log(response)
+			const response = fetch('http://77.235.20.172:3605/api/users/getExample')
+				.then(response => response.json()) // Декодируем ответ в формате json
+				.then(data => console.log(data))
+
+			// )
+			if (response) {
+				console.log('success', response.data)
+			}
+		} catch (error) {
+			console.log(error, 'errorSendGet')
+		}
+	}
+
 	return (
 		<>
 			<div className='flex justify-center items-center flex-col gap-10'>
 				<h2 className='text-2xl font-semibold mb-4 pt-10'>
 					Подтверждение кода по СМС
 				</h2>
+
+				<button onClick={sendGet}>send</button>
 				<Formik
 					initialValues={{
 						phone: '',

@@ -17,10 +17,13 @@ export const verifyPhoneNumber = async (code, phone, accessToken) => {
 				},
 			}
 		)
+		// console.log(response.data.result.userCodeid, 'hhhheeer')
+		let codeID = response.data.result.userCodeid
+		console.log(codeID, 'zaraza')
 
 		if (response.status === 200) {
 			console.log('Verification success:', response.data)
-			return response.data
+			return codeID
 		} else if (response.status === 401) {
 			console.log('Verification failed:', response.data)
 			throw new Error('Не зарегистрирован')

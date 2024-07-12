@@ -7,7 +7,8 @@ const FieldDocFilesUpload = ({ setFieldValue, label, name }) => {
 	const handleFileChange = e => {
 		const file = e.target.files[0]
 		setSelectedFile(file ? file.name : 'Файл не выбран')
-		setFieldValue(name, file)
+		// setFieldValue(name, file)
+		setFieldValue(name, e.currentTarget.files)
 	}
 	return (
 		<>
@@ -19,6 +20,10 @@ const FieldDocFilesUpload = ({ setFieldValue, label, name }) => {
 								type='file'
 								id={name}
 								onChange={handleFileChange}
+								multiple
+								// onChange={event => {
+								// 	setFieldValue(name, event.currentTarget.files)
+								// }}
 								hidden
 								// className='flex justify-center'
 							/>
