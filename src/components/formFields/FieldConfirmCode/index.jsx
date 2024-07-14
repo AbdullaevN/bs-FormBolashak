@@ -1,37 +1,65 @@
-import { Field, Form, Formik, useField } from 'formik'
+import { useField } from 'formik'
 import FieldErrorMessage from '../components/FieldErrorMessage'
+import React, { useState, useEffect } from 'react'
 
 const FieldConfirmCode = ({ label, name, ...props }) => {
-	// const [field, meta] = useField(props)
-	return (
-		<>
-			<div>
-				<label htmlFor={name} className='block mb-2'>
-					{label}:
-				</label>
-				<Field
-					type='text'
-					id={name}
-					name={name}
-					maxLength='6'
-					// className='w-full p-2 mb-2 border border-gray-300 rounded'
-					className='w-full p-2 py-2 mb-2 border border-gray-300 rounded text-4xl'
-				/>
+	const [field, meta, helpers] = useField(name)
+	const [inputValues, setInputValues] = useState(Array(6).fill(''))
 
-				<FieldErrorMessage name={name} />
+	useEffect(() => {
+		const code = inputValues.join('')
+		helpers.setValue(code)
+	}, [inputValues])
+
+	const handleInputChange = (index, value) => {
+		if (/^[0-9]$/.test(value) || value === '') {
+			const newInputValues = [...inputValues]
+			newInputValues[index] = value
+			setInputValues(newInputValues)
+
+			// Move focus to the next input
+			if (value && index < 5) {
+				const nextInput = document.getElementById(`code-input-${index + 1}`)
+				if (nextInput) {
+					nextInput.focus()
+				}
+			}
+		}
+	}
+
+	const handleKeyDown = (index, e) => {
+		if (e.key === 'Backspace' && !inputValues[index] && index > 0) {
+			const prevInput = document.getElementById(`code-input-${index - 1}`)
+			if (prevInput) {
+				prevInput.focus()
+			}
+		}
+	}
+
+	return (
+		<div>
+			<label htmlFor={name} className='block mb-2'>
+				{label}:
+			</label>
+			<div className='flex gap-2'>
+				{inputValues.map((value, index) => (
+					<input
+						key={index}
+						id={`code-input-${index}`}
+						name={`${name}-${index}`}
+						type='text'
+						inputMode='numeric'
+						autoComplete='one-time-code'
+						maxLength='1'
+						className='w-12 h-12 text-center border border-gray-950 rounded text-2xl'
+						value={value}
+						onChange={e => handleInputChange(index, e.target.value)}
+						onKeyDown={e => handleKeyDown(index, e)}
+					/>
+				))}
 			</div>
-			{/* <div className='flex flex-col items-center'>
-				<label htmlFor={props.id || props.name}>{label}</label>
-				<input
-					className='mt-2 px-4 py-2 border border-gray-300 rounded'
-					{...field}
-					{...props}
-				/>
-				{meta.touched && meta.error ? (
-					<div className='text-red-600 mt-2'>{meta.error}</div>
-				) : null}
-			</div> */}
-		</>
+			<FieldErrorMessage name={name} />
+		</div>
 	)
 }
 

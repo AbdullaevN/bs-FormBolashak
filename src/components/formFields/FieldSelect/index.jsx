@@ -19,18 +19,16 @@ const FieldSelect = ({ label, name, optionsList, placeholder }) => {
 							name={name}
 							className='text-black/70 bg-white px-3 py-2 transition-all cursor-pointer hover:border-blue-600/30 border border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black w-64'
 						>
-							<option value='' disabled selected>
+							<option value={placeholder} disabled selected>
 								{placeholder}
 							</option>
 							{optionsList?.map((item, index) => {
-								// console.log(item, 'item')
 								return (
 									<option key={index} value={item.value}>
 										{item.label}
 									</option>
 								)
 							})}
-							{/* <option value='female'></option> */}
 						</Field>
 					</div>
 				</div>

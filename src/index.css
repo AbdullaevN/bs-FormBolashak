@@ -39,23 +39,3 @@ h1 {
 	font-size: 3.2em;
 	line-height: 1.1;
 }
-
-/*  */
-/* .buttons {
-	margin-top: 20px;
-	display: flex;
-	justify-content: space-between;
-}
-
-.buttons button {
-	padding: 10px 20px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.buttons button:disabled {
-	background-color: #aaa;
-} */

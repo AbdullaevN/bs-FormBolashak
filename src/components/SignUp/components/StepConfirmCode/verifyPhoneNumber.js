@@ -7,7 +7,6 @@ export const verifyPhoneNumber = async (code, phone, accessToken) => {
 			phone: phone,
 		}
 
-		console.log()
 		const response = await axios.post(
 			'http://77.235.20.172:3605/api/users/verifi_phone',
 			requestData,
@@ -17,9 +16,7 @@ export const verifyPhoneNumber = async (code, phone, accessToken) => {
 				},
 			}
 		)
-		// console.log(response.data.result.userCodeid, 'hhhheeer')
 		let codeID = response.data.result.userCodeid
-		console.log(codeID, 'zaraza')
 
 		if (response.status === 200) {
 			console.log('Verification success:', response.data)

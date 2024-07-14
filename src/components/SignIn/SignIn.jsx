@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-// import { useNavigate } from "react-router-dom";
 const SignIn = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -29,11 +28,7 @@ const SignIn = () => {
 
 	const emailHandler = e => {
 		setEmail(e.target.value)
-		const re =
-			// /^(([^<>()[]\\.,;:\s@"]+(\.[^<>()[]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-			// /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-			/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-		// return re.test(String(email).toLowerCase())
+		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 		if (!re.test(String(e.target.value).toLowerCase())) {
 			setEmailError('Почта заполнена некорректна')
 		} else {
@@ -66,16 +61,12 @@ const SignIn = () => {
 	return (
 		<>
 			<div className='md:flex  w-full '>
-				{/* md:w-full sm:flex sm:flex-col-reverse */}
 				<div
 					className='md:w-6/12   
 				'
 				>
-					{/* // sm:w-full sm:hidden md:visible */}
 					<img
 						className='w-full h-screen object-cover '
-						// sm:object-contain
-						// src='https://t3.ftcdn.net/jpg/03/55/60/70/360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg'
 						src='https://data.kaktus.media/image/big/2018-06-14_10-42-42_310132.jpg'
 						alt=''
 					/>
@@ -98,86 +89,13 @@ const SignIn = () => {
 					</div>
 
 					<div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-						{/* <form
-							className='space-y-6'
-			 
-						>
-							<div>
-								<label
-									htmlFor='email'
-									className='block text-sm font-medium leading-6 text-gray-900'
-								>
-									Логин
-								</label>
-								<div className='mt-2'>
-									{emailDirty && emailError && (
-										<div className='text-red-900'>{emailError}</div>
-									)}
-									<input
-										onBlur={e => blurHandler(e)}
-										value={email}
-										onChange={e => emailHandler(e)}
-										id='email'
-										name='email'
-										type='email'
-										autoComplete='email'
-										required
-										className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-									/>
-								</div>
-							</div>
-
-							<div>
-								<div className=' 	 justify-between'>
-									<label
-										htmlFor='password'
-										className='block text-sm font-medium leading-6 text-gray-900'
-									>
-										Пароль
-									</label>
-							 
-								</div>
-								<div className='mt-2'>
-									{passwordDirty && passwordError && (
-										<div className='text-red-900'>{passwordError}</div>
-									)}
-									<input
-										onBlur={e => blurHandler(e)}
-										value={password}
-										onChange={e => passwordHandler(e)}
-										id='password'
-										name='password'
-										type='password'
-										autoComplete='current-password'
-										required
-										className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
-									/>
-								</div>
-							</div>
-
-							<div>
-								<button
-									disabled={!formValid}
-									type='submit'
-									className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-								>
-									<Link to='/sign-up'>Войти</Link>
-								</button>
-							</div>
-						</form> */}
-
 						<p className='mt-10 text-center text-sm text-gray-500'>
 							{' '}
-							{/* <a
-								href='#'
-								className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'
-							> */}
 							<Link to='/sign-up'>
 								<button className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
 									Оставить заявку
 								</button>
 							</Link>
-							{/* </a> */}
 						</p>
 					</div>
 				</div>

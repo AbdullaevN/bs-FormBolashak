@@ -36,12 +36,11 @@ const SignUp = () => {
 
 	const setStep = number => {
 		setCurrentStep(number)
-		// console.log(number, 'number')
 	}
 
 	useEffect(() => {
-		console.log('nextRetryTimeValue', nextRetryTimeValue)
-		console.log('storageConfirmPhone', storageConfirmPhone)
+		// console.log('nextRetryTimeValue', nextRetryTimeValue)
+		// console.log('storageConfirmPhone', storageConfirmPhone)
 		if (codeSuccessExpired) {
 			if (
 				codeSuccessExpired &&
@@ -60,7 +59,7 @@ const SignUp = () => {
 					setStep(1)
 				}
 			}
-			setStep(5)
+			setStep(1)
 		} else {
 			setStep(1)
 		}

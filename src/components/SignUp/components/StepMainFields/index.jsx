@@ -57,8 +57,6 @@ const StepMainFields = ({
 					}}
 				>
 					{({ setFieldValue, isValid, dirty, values }) => {
-						// console.log('	isalid', isValid)
-						// console.log('values,', values)
 						return (
 							<Form className='flex justify-between flex-col sm:flex-row md:flex-row'>
 								<div className='  w-full md:w-6/12 sm:w-6/12'>
